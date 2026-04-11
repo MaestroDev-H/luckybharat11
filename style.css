@@ -395,3 +395,107 @@ body {
     .status-text { font-size: 0.8rem; }
     .winner-text { font-size: 0.7rem; }
 }
+
+/* =========================================
+   1. Global Orbit Ball Animation Keyframes
+========================================= */
+@keyframes orbitBall {
+    0% {
+        offset-distance: 0%;
+    }
+    100% {
+        offset-distance: 100%;
+    }
+}
+
+/* =========================================
+   2. Container Setup for All Elements
+========================================= */
+/* সব কন্টেইনারকে বল ঘোরার জন্য প্রস্তুত করা */
+.back-section, 
+.qr-wrapper, 
+.jersey-wrap, 
+.action-wrap,
+.title-div {
+    position: relative;
+    padding: 5px; /* বল ঘোরার জন্য গ্যাপ */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* =========================================
+   3. The Orbiting Ball Styling (Pseudo-elements)
+========================================= */
+.back-section::before, 
+.qr-wrapper::before, 
+.jersey-wrap::before, 
+.action-wrap::before,
+.title-div::after {
+    content: '';
+    position: absolute;
+    width: 10px;  /* বলের সাইজ */
+    height: 10px;
+    background: var(--color-cyan);
+    border-radius: 50%;
+    box-shadow: 0 0 15px var(--color-cyan), 0 0 25px rgba(0, 229, 255, 0.5);
+    z-index: 5; /* বল থাকবে ইমেজের উপরে */
+    
+    /* এলিমেন্টের বর্ডার পাথ অনুযায়ী ঘুরবে */
+    offset-path: border-box; 
+    animation: orbitBall 4s linear infinite;
+    pointer-events: none; /* যাতে ক্লিকে বাধা না দেয় */
+}
+
+/* টাইটেল এবং সেভ বাটনগুলোর জন্য আলাদা রং (গোল্ডেন) */
+.title-div::after,
+.save-jersey::before {
+    background: var(--color-gold);
+    box-shadow: 0 0 15px var(--color-gold);
+    animation-duration: 3s; /* টাইটেলে বল একটু দ্রুত ঘুরবে */
+}
+
+/* =========================================
+   4. Layer Fix for Buttons & Content
+========================================= */
+/* নিশ্চিত করা যাতে বাটনের লেখা বলের উপরে থাকে এবং দেখা যায় */
+.action-btn {
+    z-index: 10 !important; /* টেক্সট সবার উপরে */
+    position: absolute;
+    inset: 0;
+}
+
+.action-wrap img {
+    position: relative;
+    z-index: 1; /* ইমেজ নিচে */
+}
+
+.champ-text, .number-text, .jersey-num-text {
+    z-index: 2; /* ইমেজের উপরের টেক্সটগুলো যাতে ঢেকে না যায় */
+}
+
+/* টাইটেলের জন্য রাউন্ডেড পাথ সেটআপ */
+.title-div::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(0, 229, 255, 0.1);
+    border-radius: 50px;
+    pointer-events: none;
+}
+
+/* =========================================
+   5. Cleaning Up Old Animations
+========================================= */
+/* পুরনো শিমার বা গ্লো ইফেক্ট বন্ধ করা */
+.back-img, .demo-qr-side, .title-div h1, .jersey-wrap, .action-wrap img {
+    animation: none !important;
+    border: none !important;
+}
+
+.back-img::after, 
+.demo-qr-side::after, 
+.jersey-wrap::after, 
+.action-wrap::after {
+    display: none !important;
+}
