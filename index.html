@@ -3,87 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Background Image Demo</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>Background Image Demo | Legacy Kit</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="hero">
-        <div class="left-col">
+    <main class="hero">
+        
+        <section class="left-col">
             <div class="back-section">
-                <img src="images/back_image.png" alt="Back Image" class="back-img">
+                <img src="images/back_image.png" alt="Champion Legacy Back" class="back-img">
                 <div class="champ-text">CHAMPION</div>
                 <div class="number-text">1</div>
             </div>
+
             <div class="bottom-row">
                 <div class="qr-section">
-                    <img src="images/qr.svg" alt="Demo QR Code" class="demo-qr-side">
+                    <div class="qr-wrapper">
+                        <img src="images/qr.svg" alt="Scan to Play" class="demo-qr-side">
+                    </div>
                     <div class="qr-text">SCAN, PLAY & WIN</div>
                 </div>
+
                 <div class="status-section">
-                    <img src="images/status banner.png" alt="Status Banner" class="status-img">
-                    <div class="status-text">STATUS: NOT FOR SALE.</div>
-                    <div class="winner-text">WINNER-ONLY TIER</div>
+                    <img src="images/status banner.png" alt="Status" class="status-img">
+                    <div class="status-content">
+                        <div class="status-text">STATUS: NOT FOR SALE.</div>
+                        <div class="winner-text">WINNER-ONLY TIER</div>
+                    </div>
                 </div>
             </div>
-        </div>
-<div class="right-col">
+        </section>
 
-    <div class="title-div">
-      <h1>DESIGN YOUR <span>LEGACY</span></h1>
-    </div>
-
-    <div class="frame-div">
-      <img class="frame-img" src="images/frame.png" alt="UI Frame">
-
-      <div class="frame-content">
-        <div class="section-label">
-          <span class="num">01</span> CUSTOMIZE KIT
-        </div>
-
-        <img class="divider-img" src="images/line.svg" alt="Divider">
-
-        <div class="kit-row">
-          <div class="kit-left">
-            <div class="lbl">JERSEY STYLE</div>
-            <div class="jersey-wrap">
-              <img src="images/jersey number.png" alt="Jersey">
-              <div class="jersey-num-text">10</div>
-            </div>
-            <div class="lucky-label">LUCKY<br>NUMBER</div>
-          </div>
-
-          <div class="kit-right">
-            <div class="banner-wrap">
-              <img src="images/champion banner.png" alt="Champion Banner">
-              <div class="banner-text champion-text">CHAMPION</div>
+        <section class="right-col">
+            <div class="title-div">
+                <h1>DESIGN YOUR <span>LEGACY</span></h1>
             </div>
 
-            <div class="banner-wrap">
-              <img src="images/name banner.png" alt="Name Banner">
-              <div class="banner-text name-text">RAHEL</div>
+            <div class="frame-div">
+                <img class="frame-img" src="images/frame.png" alt="" aria-hidden="true">
+                
+                <div class="frame-content">
+                    <h2 class="section-label">1. PERSONALIZE YOUR KIT</h2>
+                    <img class="divider-img" src="images/line.svg" alt="" aria-hidden="true">
+
+                    <div class="kit-row">
+                        <div class="kit-left">
+                            <h3 class="lbl">JERSEY STYLE</h3>
+                            <div class="jersey-wrap">
+                                <img src="images/jersey number.png" alt="Jersey Background">
+                                <span class="jersey-num-text">1</span>
+                            </div>
+                            <div class="lucky-label">LUCKY<br>NUMBER</div>
+                        </div>
+
+                        <div class="kit-right">
+                            <div class="banner-wrap">
+                                <img src="images/champion banner.png" alt="Champion Banner">
+                                <span class="banner-text champion-text">CHAMPION</span>
+                            </div>
+                            <div class="banner-wrap">
+                                <img src="images/name banner.png" alt="Name Banner">
+                                <span class="banner-text name-text">1</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="action-wrap design-saved">
+                        <img src="images/design save.png" alt="" aria-hidden="true">
+                        <button class="action-btn text-dark">DESIGN SAVED</button>
+                    </div>
+
+                    <h2 class="section-label">2. SELECT METALLIC FINISH</h2>
+                    <p class="sub-text">
+                        SELECT YOUR PREFERRED STYLE AND CUSTOMIZE YOUR DETAILS <br> TO CREATE A UNIQUE LEGACY PIECE
+                    </p>
+
+                    <div class="action-wrap save-jersey">
+                        <img src="images/jersey save.png" alt="" aria-hidden="true">
+                        <button class="action-btn text-light shadow-cyan">SAVE JERSEY</button>
+                    </div>
+                </div>
             </div>
+        </section>
 
-            <div class="design-saved-wrap">
-              <img src="images/design save.png" alt="Status Background">
-              <button class="design-saved-btn">DESIGN SAVED</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="sub-text">
-          SELECT YOUR PREFERRED STYLE AND CUSTOMIZE YOUR DETAILS TO CREATE A UNIQUE LEGACY PIECE
-        </div>
-
-        <div class="save-jersey-wrap">
-          <img src="images/jersey save.png" alt="Save Button Background">
-          <button class="save-jersey-btn">SAVE JERSEY</button>
-        </div>
-
-      </div>
-    </div>
-
-  </div>
-    </div>
+    </main>
 </body>
 </html>
