@@ -384,10 +384,10 @@ body {
    Responsive Adjustments
 ========================================= */
 @media (max-width: 768px) {
-    .frame-content { padding: 30px 8%; }
+    .frame-content { padding: 60px 9%; }
     .kit-row { flex-direction: column; }
     .banner-wrap { justify-content: center; }
-    .banner-wrap img { max-width: 250px; }
+    .banner-wrap img { max-width: 300px; }
     
     /* মোবাইলের জন্য লেখার পজিশন ঠিক করা হলো */
     .banner-text { left: 15%; }
