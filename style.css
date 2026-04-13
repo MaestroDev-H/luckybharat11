@@ -48,20 +48,22 @@ body {
 @media (min-width: 992px) {
     .hero {
         grid-template-columns: 1fr 1fr;
-        align-items: center;
-        padding: 40px 5%;
+        /* center এর বদলে flex-start দেওয়া হলো, যাতে দুটো কলামই ওপর থেকে শুরু হয় */
+        align-items: flex-start; 
+        /* ওপর থেকে একটু নিচে নামানোর জন্য প্যাডিং টপ বাড়ানো হয়েছে */
+        padding: 20px 5% 40px; 
     }
 }
 
 /* =========================================
-   Left Column (Display)
+   Left Column & Hologram Display
 ========================================= */
 .left-col {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 2rem;
+    gap: 0; /* গ্যাপ ২rem থেকে কমিয়ে 0 করা হয়েছে */
     width: 100%;
     max-width: 450px;
     margin: 0 auto;
@@ -71,58 +73,121 @@ body {
     position: relative;
     width: 100%;
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
+    gap: 0px; /* গ্যাপ শূন্য করা হয়েছে */
+    padding: 5px;
 }
 
+/* --- Hologram Effect (New & Smooth) --- */
+.hologram-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding-bottom: 60px; 
+    perspective: 1000px;
+}
+
+/* মসৃণ লাইট বিম (No Square Edges) */
+/* মসৃণ লাইট বিম (No Square Edges at all) */
+.hologram-light::before {
+    content: '';
+    position: absolute;
+    bottom: -40px; /* নিচের দিকে কিছুটা জায়গা দেওয়া হলো যাতে নিচটা চারকোণা না কাটে */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;  /* বক্সটি বড় করা হলো যাতে আলো বর্ডারে ধাক্কা না খায় */
+    height: 500px;
+    /* আলোটি কেন্দ্র থেকে চারদিকে মসৃণভাবে মিলিয়ে যাবে */
+    background: radial-gradient(ellipse at 50% 80%, 
+                rgba(0, 229, 255, 0.35) 0%, 
+                rgba(0, 229, 255, 0.1) 35%, 
+                transparent 65%);
+    filter: blur(20px); /* এজ বা কোণাগুলোকে পুরোপুরি ব্লার করে ব্যাকগ্রাউন্ডের সাথে মিশিয়ে দেবে */
+    z-index: 1;
+    pointer-events: none;
+    animation: lightPulse 4s ease-in-out infinite;
+}
+
+/* নিচের মূল আলো (Podium Base) */
+.hologram-light {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 220px;
+    height: 25px;
+    background: radial-gradient(ellipse, rgba(0, 229, 255, 0.9) 0%, rgba(0, 229, 255, 0.3) 50%, transparent 80%);
+    border-radius: 50%;
+    box-shadow: 0 0 40px rgba(0, 229, 255, 0.8);
+    z-index: 1;
+}
+
+/* ইমেজ থেকে বর্ডার ও গ্লো সরানো হয়েছে এবং ফ্লোট এনিমেটেড করা হয়েছে */
 .back-img {
+    position: relative;
+    z-index: 2;
     width: 100%;
     max-width: 380px;
-    border: 4px solid rgba(255, 215, 0, 0.6);
-    border-radius: 20px;
-    box-shadow: 0 12px 32px rgba(255, 215, 0, 0.4);
     height: auto;
+    border-radius: 20px;
+    border: none; 
+    background-color: transparent; 
+    box-shadow: none;
+    transform: translateY(-30px);
+    filter: drop-shadow(0 0 20px rgba(0, 229, 255, 0.4));
+    animation: floatImage 6s ease-in-out infinite;
 }
 
+/* টেক্সটগুলোকে ইমেজের সাথে ভাসমান (Float) করার অ্যানিমেশন */
 .champ-text {
     position: absolute;
-    top: 35%;
+    top: 20%;
     font-size: 1.5rem;
     font-weight: 900;
     text-shadow: var(--shadow-text);
     letter-spacing: 2px;
+    z-index: 3;
+    animation: floatChampText 6s ease-in-out infinite;
 }
 
 .number-text {
     position: absolute;
-    top: 55%;
-    transform: translateY(-50%);
+    top: 40%;
     font-size: 7rem;
     font-weight: 900;
     text-shadow: var(--shadow-text);
+    z-index: 3;
+    animation: floatNumberText 6s ease-in-out infinite;
 }
 
-.bottom-row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    gap: 2rem;
-}
-
+/* QR Code Section (Moved Closer) */
 .qr-section {
+    position: absolute;
+    bottom: 30%; /* জার্সি ইমেজের নিচের অংশে বসানোর জন্য */
+    left: 50%;
+    transform: translateX(-50%);
     text-align: center;
+    z-index: 5;
+    /* জার্সির সাথে একসাথে ওপরে-নিচে হওয়ার জন্য অ্যানিমেশন */
+    animation: floatQR 6s ease-in-out infinite; 
 }
 
 .demo-qr-side {
-    width: 80px;
-    height: 80px;
-    border: 3px solid var(--color-gold);
-    border-radius: 10px;
-    background: var(--color-white);
-    padding: 5px;
-    box-shadow: 0 8px 24px rgba(255,215,0,0.6);
-    transition: transform 0.3s ease;
+    width: 70px; /* একটু ছোট করা হয়েছে যাতে জার্সিতে সুন্দর দেখায় */
+    height: 70px;
+    border: 2px solid var(--color-gold);
+    background: #fff;
+    padding: 3px;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+}
+
+@keyframes floatQR {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-15px); } /* জার্সির floatImage এর সাথে মিল রেখে */
 }
 
 .demo-qr-side:hover {
@@ -137,9 +202,20 @@ body {
     text-shadow: var(--shadow-text);
 }
 
+/* Bottom Row (Status Banner) */
+.bottom-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: -30px; /* ব্যানারটিকে আরও ওপরে টেনে আনার জন্য */
+    z-index: 10;
+}
+
 .status-section {
     position: relative;
-    max-width: 250px;
+    max-width: 350px; /* ব্যানার বড় করা হয়েছে */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -161,13 +237,13 @@ body {
 }
 
 .status-text {
-    font-size: 0.9rem;
+    font-size: 1.2rem; /* টেক্সট বড় করা হয়েছে */
     font-weight: 700;
     text-shadow: var(--shadow-text);
 }
 
 .winner-text {
-    font-size: 0.8rem;
+    font-size: 1.1rem; /* টেক্সট বড় করা হয়েছে */
     color: var(--color-gold);
     font-weight: 700;
     text-shadow: var(--shadow-text);
@@ -194,7 +270,6 @@ body {
     pointer-events: none;
 }
 
-/* ১. টাইটেল কিছুটা ছোট করা হয়েছে */
 .title-div {
     text-align: center;
     margin-bottom: 0px;
@@ -202,7 +277,7 @@ body {
 }
 
 .title-div h1 {
-    font-size: clamp(1.4rem, 3.5vw, 2.1rem); /* ফন্ট সাইজ কমানো হয়েছে */
+    font-size: clamp(1.4rem, 3.5vw, 2.1rem);
     font-weight: 900;
     letter-spacing: 3px;
     color: var(--color-cyan);
@@ -230,12 +305,11 @@ body {
     z-index: 0;
 }
 
-/* ২. ফ্রেমের ভেতরের প্যাডিং বাড়ানো হয়েছে যাতে বর্ডারে না লাগে */
 .frame-content {
     position: relative;
     z-index: 1;
     width: 100%;
-    padding: 60px 12% 30px; /* প্যাডিং বাড়িয়ে কন্টেন্ট ভেতরে ঢোকানো হয়েছে */
+    padding: 60px 12% 30px;
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -245,7 +319,6 @@ body {
     font-size: 0.8rem;
     letter-spacing: 2px;
     color: var(--color-cyan);
-    /* মার্জিন লেফট বাদ দেওয়া হয়েছে, এখন শুধু প্যাডিংয়ের ওপর নির্ভর করবে */
 }
 
 .divider-img {
@@ -261,12 +334,11 @@ body {
     gap: 15px;
 }
 
-/* ৩. কিট-লেফটের ভেতরের গ্যাপ কমানো হয়েছে */
 .kit-left {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0px; /* গ্যাপ শূন্য (০) করে দেওয়া হয়েছে */
+    gap: 0px;
 }
 
 .lbl, .lucky-label {
@@ -284,7 +356,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: -5px; /* লక్కি লেবেলের দূরত্ব আরও কমাতে সাহায্য করবে */
+    margin-bottom: -5px;
 }
 
 .jersey-wrap img {
@@ -315,21 +387,19 @@ body {
     justify-content: flex-end;
 }
 
-/* ৪. কিট-রাইটের ইমেজ বড় করা হয়েছে */
 .banner-wrap img {
     width: 100%;
-    max-width: 260px; /* সাইজ ২০০px থেকে বাড়িয়ে ২৬০px করা হয়েছে */
+    max-width: 260px;
 }
 
-/* ৪. লেখা বামে আনা হয়েছে এবং সাদা করা হয়েছে */
 .banner-text {
     position: absolute;
     top: 50%;
-    left: 10%; /* টেক্সট বামে নিয়ে আসা হয়েছে */
-    transform: translateY(-50%); /* ঠিক মাঝে রাখার জন্য */
+    left: 10%;
+    transform: translateY(-50%);
     font-weight: 900;
     letter-spacing: 2px;
-    color: var(--color-white); /* সব লেখা সাদা করে দেওয়া হয়েছে */
+    color: var(--color-white);
     text-align: left;
 }
 
@@ -345,10 +415,11 @@ body {
     margin: 5px 0;
 }
 
-
 .action-wrap img {
     width: 85%;
     max-width: 350px;
+    position: relative;
+    z-index: 1;
 }
 
 .action-btn {
@@ -365,6 +436,7 @@ body {
     letter-spacing: 3px;
     display: grid;
     place-items: center;
+    z-index: 10 !important;
 }
 
 .text-dark { color: var(--color-dark); }
@@ -381,100 +453,77 @@ body {
 }
 
 /* =========================================
-   Responsive Adjustments
+   Keyframe Animations
 ========================================= */
-@media (max-width: 768px) {
-    .frame-content { padding: 60px 9%; }
-    .kit-row { flex-direction: column; }
-    .banner-wrap { justify-content: center; }
-    .banner-wrap img { max-width: 300px; }
-    
-    /* মোবাইলের জন্য লেখার পজিশন ঠিক করা হলো */
-    .banner-text { left: 15%; }
-    
-    .status-text { font-size: 0.8rem; }
-    .winner-text { font-size: 0.7rem; }
+
+/* Hologram Light Pulse */
+@keyframes lightPulse {
+    0%, 100% { opacity: 0.6; transform: translateX(-50%) scale(1); }
+    50% { opacity: 0.9; transform: translateX(-50%) scale(1.05); }
 }
 
-/* =========================================
-   1. Global Orbit Ball Animation Keyframes
-========================================= */
+/* Floating Image */
+@keyframes floatImage {
+    0%, 100% { transform: translateY(-30px); }
+    50% { transform: translateY(-45px); filter: drop-shadow(0 0 35px rgba(0, 229, 255, 0.7)); }
+}
+
+/* Floating Champion Text */
+@keyframes floatChampText {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+/* Floating Number Text */
+@keyframes floatNumberText {
+    0%, 100% { transform: translateY(-50%); }
+    50% { transform: translateY(calc(-50% - 15px)); }
+}
+
+/* Orbit Ball Animation */
 @keyframes orbitBall {
-    0% {
-        offset-distance: 0%;
-    }
-    100% {
-        offset-distance: 100%;
-    }
+    0% { offset-distance: 0%; }
+    100% { offset-distance: 100%; }
 }
 
 /* =========================================
-   2. Container Setup for All Elements
+   Orbiting Elements Setup
 ========================================= */
-/* সব কন্টেইনারকে বল ঘোরার জন্য প্রস্তুত করা */
-.back-section, 
 .qr-wrapper, 
 .jersey-wrap, 
 .action-wrap,
 .title-div {
     position: relative;
-    padding: 5px; /* বল ঘোরার জন্য গ্যাপ */
+    padding: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* =========================================
-   3. The Orbiting Ball Styling (Pseudo-elements)
-========================================= */
-.back-section::before, 
 .qr-wrapper::before, 
 .jersey-wrap::before, 
 .action-wrap::before,
 .title-div::after {
     content: '';
     position: absolute;
-    width: 10px;  /* বলের সাইজ */
+    width: 10px;
     height: 10px;
     background: var(--color-cyan);
     border-radius: 50%;
     box-shadow: 0 0 15px var(--color-cyan), 0 0 25px rgba(0, 229, 255, 0.5);
-    z-index: 5; /* বল থাকবে ইমেজের উপরে */
-    
-    /* এলিমেন্টের বর্ডার পাথ অনুযায়ী ঘুরবে */
+    z-index: 5;
     offset-path: border-box; 
     animation: orbitBall 4s linear infinite;
-    pointer-events: none; /* যাতে ক্লিকে বাধা না দেয় */
+    pointer-events: none;
 }
 
-/* টাইটেল এবং সেভ বাটনগুলোর জন্য আলাদা রং (গোল্ডেন) */
 .title-div::after,
 .save-jersey::before {
     background: var(--color-gold);
     box-shadow: 0 0 15px var(--color-gold);
-    animation-duration: 3s; /* টাইটেলে বল একটু দ্রুত ঘুরবে */
+    animation-duration: 3s;
 }
 
-/* =========================================
-   4. Layer Fix for Buttons & Content
-========================================= */
-/* নিশ্চিত করা যাতে বাটনের লেখা বলের উপরে থাকে এবং দেখা যায় */
-.action-btn {
-    z-index: 10 !important; /* টেক্সট সবার উপরে */
-    position: absolute;
-    inset: 0;
-}
-
-.action-wrap img {
-    position: relative;
-    z-index: 1; /* ইমেজ নিচে */
-}
-
-.champ-text, .number-text, .jersey-num-text {
-    z-index: 2; /* ইমেজের উপরের টেক্সটগুলো যাতে ঢেকে না যায় */
-}
-
-/* টাইটেলের জন্য রাউন্ডেড পাথ সেটআপ */
 .title-div::before {
     content: '';
     position: absolute;
@@ -485,17 +534,15 @@ body {
 }
 
 /* =========================================
-   5. Cleaning Up Old Animations
+   Responsive Adjustments
 ========================================= */
-/* পুরনো শিমার বা গ্লো ইফেক্ট বন্ধ করা */
-.back-img, .demo-qr-side, .title-div h1, .jersey-wrap, .action-wrap img {
-    animation: none !important;
-    border: none !important;
-}
-
-.back-img::after, 
-.demo-qr-side::after, 
-.jersey-wrap::after, 
-.action-wrap::after {
-    display: none !important;
+@media (max-width: 768px) {
+    .frame-content { padding: 60px 9%; }
+    .kit-row { flex-direction: column; }
+    .banner-wrap { justify-content: center; }
+    .banner-wrap img { max-width: 300px; }
+    .banner-text { left: 15%; }
+    
+    .status-text { font-size: 1rem; }
+    .winner-text { font-size: 0.9rem; }
 }
